@@ -1,1 +1,4 @@
-
+List of emails line by line to which the message has to be sent
+Example:
+something@gmail.com
+anything@gmail.com
