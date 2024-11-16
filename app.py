@@ -3,7 +3,7 @@ from email.message import EmailMessage
 import ssl
 import smtplib
 from email_validator import validate_email, EmailNotValidError
-
+import json
 
 def is_valid_email(email):
     try:
@@ -28,25 +28,23 @@ def main():
 
                 if is_valid_email(email):
                     process_email(email)
-
+                else:
+                    print("One of a email is not valid.")
+                    
     except Exception as e:
         print(f"An error occurred: {e}")
 
 
 def send_email(email):
-    with open("login.txt", "r") as f:
-        login = [line.strip() for line in f]
+    with open('data.json', 'r') as file:
+        data = json.load(file)
 
-    email_Sender = login[0]
-    email_password = login[1]
+    email_Sender = data[0]["email-address"]
+    email_password = data[0]['password']
     email_receiver = email
 
-    with open("subject.txt", "r") as f:
-        subj_text = [line.strip() for line in f]
-
-    subject = subj_text[0]
-    file = open('body.txt',mode='r')
-    body_text = file.read()
+    subject = data[1]['subject']
+    body_text = data[1]['body']
 
     email = EmailMessage()
 
@@ -57,10 +55,14 @@ def send_email(email):
     email.set_content(body_text)
 
     context = ssl.create_default_context()
-    
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
-        smtp.login(email_Sender, email_password)
-        smtp.sendmail(email_Sender, email_receiver, email.as_string())
+
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+            smtp.login(email_Sender, email_password)
+            smtp.sendmail(email_Sender, email_receiver, email.as_string())
+        print("Email sent successfully!")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
     main()
