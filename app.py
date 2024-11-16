@@ -57,7 +57,7 @@ def send_email(email):
     context = ssl.create_default_context()
 
     try:
-        with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+        with smtplib.SMTP_SSL(data[0]["smtp"], 465, context=context) as smtp:
             smtp.login(email_Sender, email_password)
             smtp.sendmail(email_Sender, email_receiver, email.as_string())
         print("Email sent successfully!")
