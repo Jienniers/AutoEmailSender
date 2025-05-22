@@ -1,26 +1,133 @@
+# 📧 Auto Email Sender
 
-# Auto Email Sender
+A simple yet powerful Python script that allows you to send a single email message to **multiple recipients** in bulk by listing them in an `emails.txt` file. Ideal for small campaigns, notifications, or announcements. Works best with **Gmail** SMTP.
 
-This python script helps you to send one email message to dozens of email addresses just by putting them in email.txt file
+---
 
-## Information on how to use it
+## 🚀 Features
 
-### How to set it up (For Gmail)?
-To send emails from your email address (if you're using gmail) you need to get a app password from [here](https://myaccount.google.com/u/1/apppasswords) and put that in place of password in [data.json](https://github.com/Jienniers/AutoEmailSender/blob/main/data.json) with your email-address. Now you have the sending email address ready. Now you just need to add all the email addresses whom you need to send mails to in [emails.txt](https://github.com/Jienniers/AutoEmailSender/blob/main/emails.txt)
+* Send emails to multiple addresses automatically
+* Validate recipient email addresses before sending
+* Customizable subject and body content via `data.json`
+* Uses secure SSL connection
 
+---
 
-## FAQ
+## 🛠️ Requirements
 
-#### How do I run it?
+Make sure you have the following Python package installed:
 
-Makesure to have python installed. Then you need to open cmd in the folder with these files then type ``python app.py``.
+```bash
+pip install email-validator
+```
 
-#### How do I specify SMTP server?
+> 💡 No need to install `os`, `ssl`, `json`, `smtplib`, or `email.message` — they are built-in modules in Python.
 
-In the code its default smtp server is smtp.gmail.com you can change it to whatever you like in [data.json](https://github.com/Jienniers/AutoEmailSender/blob/main/data.json).
+---
 
+## ⚙️ Setup Instructions
 
-## Feedback
+### 1. Configure Your Gmail Account 📩
 
-If you have any feedback, Kindly post them in [@issues](https://github.com/Jienniers/AutoEmailSender/issues).
+If you're using Gmail:
 
+1. Go to your [Google App Passwords](https://myaccount.google.com/apppasswords)
+2. Generate a password for the "Mail" app
+3. Copy it into `data.json` like this:
+
+```json
+[
+  {
+    "email-address": "your_email@gmail.com",
+    "password": "your_app_password",
+    "smtp": "smtp.gmail.com"
+  },
+  {
+    "subject": "Subject of the Email",
+    "body": "Body of your email goes here."
+  }
+]
+```
+
+### 2. Add Recipient Emails
+
+List the email addresses line-by-line in `emails.txt`:
+
+```
+example1@gmail.com
+example2@yahoo.com
+```
+
+---
+
+## 💻 Running the Script
+
+Make sure Python is installed on your system, then:
+
+```bash
+python app.py
+```
+
+You should see status messages about each email being validated and sent. If any email is invalid, it will be skipped with a warning.
+
+---
+
+## ✏️ Customizing SMTP Settings
+
+By default, the script uses `smtp.gmail.com`.
+If you're using a different email provider, just update the `smtp` field in `data.json`:
+
+```json
+"smtp": "smtp.yourprovider.com"
+```
+
+---
+
+## 📁 File Overview
+
+| File Name    | Purpose                                           |
+| ------------ | ------------------------------------------------- |
+| `app.py`     | Main Python script                                |
+| `emails.txt` | Contains recipient email addresses (one per line) |
+| `data.json`  | Contains login credentials and email content      |
+
+---
+
+## ❓ FAQ
+
+### 🔧 How do I install dependencies?
+
+Run:
+
+```bash
+pip install email-validator
+```
+
+### 🚨 What happens if an email is invalid?
+
+The script will skip it and print a warning in the terminal.
+
+### 🌍 Can I use this with Outlook, Yahoo, etc.?
+
+Yes, just change the `smtp` field in `data.json` to the correct SMTP server.
+
+---
+
+## 🙋 Feedback & Contributions
+
+Feel free to open an [issue](https://github.com/Jienniers/AutoEmailSender/issues) or submit a pull request if you find bugs or have feature suggestions.
+
+---
+
+## 👤 Author
+
+**Jienniers**
+📫 [GitHub Profile](https://github.com/Jienniers)
+
+---
+
+## 📝 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
