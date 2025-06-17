@@ -21,6 +21,12 @@ Make sure you have the following Python package installed:
 pip install email-validator
 ```
 
+Or you can run the following command to install all required modules:
+
+```bash
+pip install -r requirements.txt
+```
+
 > 💡 No need to install `os`, `ssl`, `json`, `smtplib`, or `email.message` — they are built-in modules in Python.
 
 ---
