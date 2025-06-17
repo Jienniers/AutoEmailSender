@@ -5,6 +5,7 @@ import smtplib
 from email_validator import validate_email, EmailNotValidError
 import json
 
+
 def is_valid_email(email):
     try:
         v = validate_email(email)
@@ -16,13 +17,14 @@ def is_valid_email(email):
 def process_email(email):
     send_email(email=email)
 
+
 def main():
-    file_path = "emails.txt" 
+    file_path = "emails.txt"
     try:
         if not os.path.exists(file_path):
             raise FileNotFoundError(f"File not found: {file_path}")
 
-        with open(file_path, 'r') as file:
+        with open(file_path, "r") as file:
             for line in file:
                 email = line.strip()
 
@@ -30,21 +32,21 @@ def main():
                     process_email(email)
                 else:
                     print("One of a email is not valid.")
-                    
+
     except Exception as e:
         print(f"An error occurred: {e}")
 
 
 def send_email(email):
-    with open('data.json', 'r') as file:
+    with open("data.json", "r") as file:
         data = json.load(file)
 
     email_Sender = data[0]["email-address"]
-    email_password = data[0]['password']
+    email_password = data[0]["password"]
     email_receiver = email
 
-    subject = data[1]['subject']
-    body_text = data[1]['body']
+    subject = data[1]["subject"]
+    body_text = data[1]["body"]
 
     email = EmailMessage()
 
@@ -63,6 +65,7 @@ def send_email(email):
         print("Email sent successfully!")
     except Exception as e:
         print(f"An error occurred: {e}")
+
 
 if __name__ == "__main__":
     main()
